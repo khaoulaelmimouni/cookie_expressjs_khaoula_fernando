@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Présentation : Gestion des Cookies avec Express.js</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+
+</head>
+<body>
+
+  <header class="bg-primary text-light py-4">
+    <div class="container text-center">
+        <h1>Présentation : Gestion des Cookies avec Express.js</h1>
+      </div>
+  </header>
+
+  <main class="container my-4">
+    <section class="p-4 mb-4 bg-light">
+      <h2>Introduction</h2>
+      <p>Les cookies sont de petits morceaux de données stockés sur le navigateur des utilisateurs, utilisés par les sites web pour diverses fonctionnalités telles que le suivi des sessions, la personnalisation du contenu et le stockage d'informations temporaires. La gestion adéquate des cookies est cruciale pour offrir une expérience utilisateur fluide et personnalisée tout en assurant la sécurité des données.</p>
+      <p>Les cookies sont envoyés entre le client et le serveur à chaque demande et réponse, et ils sont stockés dans le navigateur Web du client jusqu'à leur expiration ou leur suppression manuelle.</p>
+    </section>
+
+    <section class="p-4 mb-4 bg-light">
+      <h2>Express.js : Introduction-rappel </h2>
+      <img src="expressjs.png" alt="Logo Express.js" class="express-logo">
+      <p>Express.js est un framework web pour Node.js, offrant des fonctionnalités robustes pour la création d'applications web. Il simplifie la gestion des requêtes et des réponses HTTP, offrant des modules middleware pour étendre les fonctionnalités de base.</p>
+    </section>
+
+    <section class="p-4 mb-4 bg-light">
+      <h2>Middleware `cookie-parser`</h2>
+      <p>Le middleware cookie-parser est essentiel pour la gestion des cookies avec Express.js. Il analyse les cookies envoyés par le navigateur client et les rend accessibles dans les objets req.cookies.</p>
+      <p>Le middleware cookie-analyser fonctionne en analysant l'en-tête Cookie d'une requête entrante et en remplissant un objet req.cookies avec les paires clé-valeur du cookie. Le middleware peut également gérer les cookies signés, où la valeur du cookie est signée à l'aide d'une clé secrète pour empêcher toute falsification.</p>
+      <p>Exemple : <code>const cookieParser = require('cookie-parser');</code></p>
+    </section>
+
+    <section class="p-4 mb-4 bg-light">
+        <h2>Utilisation des cookies dans Express.JS</h2>
+        <p>Dans Express.js, les cookies peuvent être définis et récupérés à l'aide du middleware cookie-analyser. Ce middleware analyse les en-têtes de cookies entrants et remplit l'objet req.cookies avec les paires clé-valeur de tous les cookies envoyés par le client.
+
+            Pour utiliser le middleware cookie-analyser, vous devez d'abord l'installer à l'aide de npm :</p>
+        <p>1. <code> npm install cookie-parser;</code></p>
+        <p>Cette commande télécharge et installe le package 'cookie-parser' dans le projet node-js, permettant ainsi d'utiliser ce middleware pour gérer les cookies dans l'application Express.JS</p>
+      </section>
+
+    <section class="p-4 mb-4 bg-light">
+        <h3>Configuration du middleware:</h3>
+        <p><code>const express = require('express');</code></p>
+        <p><code>const cookieParser = require ( 'cookie-parser' ) ;</code></p>
+        <p><code>const app = express () ;</code></p>
+        <p><code>app.use(cookieParser());</code></p>
+        <p>Maintenant que le middleware est configuré, vous pouvez utiliser la méthode res.cookie() pour définir un nouveau cookie. Cette méthode prend deux arguments : le nom du cookie et la valeur du cookie.</p>
+        <p><code>app.get('/set-cookie', (req, res) => { </code></p> 
+        <p><code>res.cookie('username', 'DataFlair'); // Remplace 'DataFlair' par la valeur souhaitée</code></p> 
+        <p><code>res.send('Cookie défini !');
+          }) ;</code></p>
+        <p>// Démarrage du serveur sur le port 3000<p></p>
+        <p><code>const PORT = 3000;</code></p>     
+        <p><code>app.listen(PORT, () => {     </code></p> 
+        <p><code>console.log(`Serveur démarré sur le port ${PORT}`);
+        });    </code></p> 
+    </br>
+        <p>- Utilisation de require('cookie-parser') pour importer correctement le middleware cookie-parser.</p>
+        <p>- Utilisation de app.use(cookieParser()) pour ajouter le middleware à l'application Express.</p>
+        <p>- Correction de l'utilisation de res.cookie() en passant une chaîne pour le nom du cookie ('username') et une valeur (dans cet exemple, 'DataFlair').</p>
+        
+      </section> 
+
+    <section class="p-4 mb-4 bg-light">
+        <h3>Options de cookies dans ExpressJS :</h3>
+        <p>
+            Les cookies peuvent également être configurés avec diverses options, telles que le délai d'expiration, le chemin et le domaine. Pour définir ces options, vous pouvez transmettre un objet options comme troisième argument à la méthode res.cookie().
+
+        </p>
+        <p><code>app.get('/set-cookie', (req, res) => {</code></p>
+        <p><code>res.cookie('username', 'John', { maxAge: 86400000, httpOnly: true });</code></p>
+        <p><code>res.send('Cookie défini !');
+        });</code></p>
+               
+        
+        <p>Dans cet exemple :</p>
+        <p>-'username' est le nom du cookie.</p>
+        <p>- 'John' est la valeur du cookie.</p>
+        <p>- maxAge: 86400000 détermine la durée de vie du cookie en millisecondes (ici, 86 400 000 millisecondes représentent un jour).</p>
+        <p>- httpOnly: true configure le cookie pour être accessible uniquement via des requêtes HTTP et le rend inaccessible aux scripts côté client, renforçant ainsi la sécurité en évitant que des scripts côté client n'y accèdent.</p>
+    </section>  
+    
+
+
+    <section class="p-4 mb-4 bg-light">
+        <h3>La fonction  JSONCookie(str): </h3>
+        
+    </br>
+         <p>L'une des fonctions fournies par le middleware cookie-analyseur est JSONCookie(str). Cette fonction prend une chaîne représentant un objet JSON et renvoie l'objet analysé. Ceci est utile dans les cas où une valeur de cookie est un objet JSON et doit être analysée avant utilisation.
+
+            Par exemple, considérons la valeur de cookie suivante :</p>
+          
+                <p><code>const express = require('express');</code></p>
+                <p><code>const cookieParser = require('cookie-parser');</code></p>
+                    
+                <p><code>app = express();</code></p>
+                    
+                <p>// Utilisation du middleware cookie-parser</p>
+                <code>app.use(cookieParser());</code>
+                    
+                <p>// Route pour la page d'accueil</p>
+                <code>('/', (req, res) => {</code>
+                <p>// Exemple de valeur de cookie avec un objet JSON</p>
+                <code>cookieValue = '{"name": "Jean", "age": 30}';</code> 
+                    
+                <p>// Définition du cookie avec la valeur JSON</p>
+                <code>res.cookie('user', cookieValue);</code>
+                    
+                <p>// Récupération et utilisation de la valeur du cookie</p>
+                <p><code>const user = cookieParser.JSONCookie(req.cookies.user);</code></p>
+                <p><code>const name = user.name;</code></p>
+                    
+                <p>// Envoi d'une réponse à l'utilisateur</p>
+                <code>res.send(`Hello ${name}!`);});</code>
+                    
+                    
+                <p>// Démarrage du serveur sur le port 3000</p>
+                <p><code>const PORT = 3000;</code></p>
+                <p><code>app.listen(PORT, () => {</code></p>
+                <p><code>console.log(`Serveur démarré sur le port ${PORT}`);});</code></p>
+                    
+               
+
+    </section>
+
+
+    <section class="p-4 mb-4 bg-light">
+        <p>
+        En plus de JSONCookie, le middleware d'analyse de cookies fournit également d'autres fonctions pour gérer les cookies, telles que les cookies signés, la sérialisation et l'analyse. 
+            </p>
+    </br>
+
+        </section>    
+    
+        <section class="p-4 mb-4 bg-light">
+            <h2>Lecture de cookies</h2>
+      <p>Express.js facilite la lecture des cookies grâce à req.cookies, qui permet d'accéder aux valeurs des cookies dans les requêtes entrantes. Cela simplifie la récupération d'informations stockées dans les cookies pour personnaliser l'expérience utilisateur.</p>
+      <p>Exemple : <code>const username = req.cookies.username;</code></p>
+      <p><code>const express = require('express');</code></p>
+      <p><code>const cookieParser = require('cookie-parser');</code></p>
+      
+      <code>const app = express();</code>
+      
+      <p>// Utilisation du middleware cookie-parser</p>
+      <code>app.use(cookieParser());</code>
+      
+      <p>// Route pour la lecture des cookies</p>
+      <code>app.get('/', (req, res) => {</code>
+      <p>// Lecture de la valeur du cookie 'username'<p>
+      <code>const username = req.cookies.username;</code>
+      
+      <p>// Vérification si le cookie 'username' existe</p>
+      <code>if (username) {</code>
+      <code>res.send(`Bienvenue, ${username} !`);}</code>
+      <p><code> else {</code>
+      <code>res.send("Aucun cookie 'username' trouvé.");</code>
+      <code>}</p></code>
+      <code>});</code>
+      
+      <p>// Démarrage du serveur sur le port 3000</p>
+      <p><code>const PORT = 3000;</code></p>
+      <p><code>app.listen(PORT, () => {</code></p>
+      <p><code>console.log(`Serveur démarré sur le port ${PORT}`);</code></p>
+      <code>});</code>
+      
+          </section>
+
+    <section class="p-4 mb-4 bg-light">
+        <h2>
+        Supprimer les cookies dans ExpressJS
+            </h2>
+        <p>Pour supprimer un cookie, vous pouvez utiliser la méthode res.clearCookie(), qui prend le nom du cookie en argument.
+            </p>
+        <p>
+        
+            <code>    app.get('/clear-cookie', (req, res) => {</code>
+            <code>    res.clearCookie('username');</code>
+            <code>res.send('Cookie cleared!');</code>
+            <code> });</code>
+        
+            </p>
+        <p>
+        Dans cet exemple, nous définissons une nouvelle route '/clear-cookie' qui supprime le cookie 'username' à l'aide de la méthode res.clearCookie() et renvoie une réponse au client avec le message 'Cookie effacé !'.
+            </p>
+
+        </section>
+
+    <section class="p-4 mb-4 bg-light">
+        <h2>
+        Considérations de sécurité
+
+            </h2>
+
+        <p>
+        Les cookies peuvent être un outil puissant pour les développeurs Web, mais ils peuvent également présenter des risques de sécurité s'ils ne sont pas correctement configurés. L'un des risques de sécurité les plus courants associés aux cookies concerne les attaques de type cross-site scripting (XSS). Cela se produit lorsque des scripts malveillants sont injectés dans un site Web via des champs de saisie vulnérables, tels que des champs de recherche ou des formulaires de contact. Pour atténuer le risque d'attaques XSS, vous pouvez définir l'option httpOnly sur true, ce qui empêche les scripts côté client d'accéder au cookie.
+            </p>
+        </br>
+        <p>
+    Un autre risque de sécurité associé aux cookies concerne les attaques de falsification de requêtes intersites (CSRF), qui se produisent lorsqu'un site Web malveillant envoie une demande à un site Web légitime au nom de l'utilisateur, en exploitant ses informations d'authentification stockées dans les cookies.
+            </p>
+        </br>
+        <p>
+            Pour atténuer le risque d'attaques CSRF, vous pouvez utiliser le middleware csurf dans Express.js, qui génère et valide des jetons uniques pour chaque requête entrante, garantissant ainsi que seules les requêtes légitimes sont traitées.
+            </p>
+
+            </section>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+    
+
+  
+
+    
+
+    <section class="p-4 mb-4 bg-light">
+      <h2>Avantages et Limitations</h2>
+      <p>L'utilisation de cookies avec Express.js offre une flexibilité et une personnalisation accrues pour les applications web. Cependant, il est essentiel de considérer les limitations et les bonnes pratiques pour garantir une utilisation appropriée des cookies.</p>
+      <p>Cependant, ils ont des limitations telles que la taille des données stockées et des problèmes de sécurité potentiels.</p>
+    </section>
+
+    <section class="p-4 mb-4 bg-light">
+      <h2>Conclusion</h2>
+      <p>La gestion des cookies avec Express.js est un élément clé pour offrir une expérience utilisateur personnalisée et sécurisée. En utilisant les fonctionnalités intégrées d'Express.js et en suivant les bonnes pratiques de sécurité, les développeurs peuvent garantir un traitement efficace et sécurisé des cookies dans leurs applications web.
+
+      </p>
+      <p>En suivant les bonnes pratiques de sécurité, les développeurs peuvent garantir un traitement efficace et sécurisé des cookies dans leurs applications web.</p>
+    </section>
+  </main>
+
+  <footer class="bg-primary text-light py-2">
+    <div class="container text-center">
+        <p>Préparé par EL MIMOUNI Khaoula & LALANNE Fernando</p>
+      </div>
+    
+  </footer>
+
+</body>
+</html>
+

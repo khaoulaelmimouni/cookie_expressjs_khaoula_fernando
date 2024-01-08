@@ -1,0 +1,65 @@
+/* Styles pour la mise en page */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+  }
+  
+  header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+  }
+  
+  h1 {
+    font-size: 2.5em;
+  }
+  
+  main {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  section {
+    margin-bottom: 30px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+  }
+  
+  h2 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  p {
+    font-size: 1.2em;
+    line-height: 1.6;
+  }
+  
+  footer {
+    text-align: center;
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+
+  .bg-lightblue {
+    background-color: #cfe4ff; /* Remplacez cette valeur par la couleur bleu ciel de votre choix */
+  }
+
+  .express-logo {
+    max-width: 200px; /* Ajuste la taille du logo selon tes besoins */
+    display: block;
+    margin: 0 auto 20px; /* Centre le logo horizontalement avec une marge en bas */
+  }
+  
